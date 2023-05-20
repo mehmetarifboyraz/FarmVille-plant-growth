@@ -1,0 +1,73 @@
+@startuml
+skinparam groupInheritance 2
+
+abstract class Plant {
+    -name: String
+    -growTime: int
+    -isHarvest: boolean
+
+    +Plant(String, int)
+    +getName(): String
+    +setName(String): void
+    +getGrowTime(): int
+    +setGrowTime(int): void
+    +isHarvestable(): boolean
+    +setHarvestable(boolean): void
+    +water(): void
+    +grow(): void
+    +harvest(): void
+    +toString(): String
+}
+
+interface IPlantActions {
+    +water(): void
+    +harvest(): void
+}
+
+class TomatoPlant {
+    -waterLevel: int
+    -farm: Farm
+
+    +TomatoPlant(String, int, int)
+    +water(): void
+    +grow(): void
+    +harvest(): void
+}
+
+class CarrotPlant {
+    -waterLevel: int
+    -farm: Farm
+
+    +CarrotPlant(String, int, int)
+    +water(): void
+    +grow(): void
+    +harvest(): void
+}
+
+class Farm {
+    -day: int
+    -plants: ArrayList<Plant>
+
+    +Farm()
+    +addPlant(Plant): void
+    +simulateDay(): void
+}
+
+class FarmVille{
++FarmVille()
+--
++main(String[]):void
+}
+
+FarmVille ..> Farm
+FarmVille ..>TomatoPlant
+FarmVille ..>CarrotPlant
+
+Plant <|-[#blue]- TomatoPlant
+Plant <|-[#blue]- CarrotPlant
+
+Farm "1" *--> "*" Plant
+
+IPlantActions <|.[#green]. Plant
+
+@enduml
